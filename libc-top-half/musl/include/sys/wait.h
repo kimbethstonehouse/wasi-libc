@@ -16,6 +16,12 @@ typedef enum {
 	P_PGID = 2,
 	P_PIDFD = 3
 } idtype_t;
+	
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#include <sys/resource.h>
+pid_t wait3 (int *, int, struct rusage *);
+pid_t wait4 (pid_t, int *, int, struct rusage *);
+#endif
 
 pid_t wait (int *);
 pid_t waitpid (pid_t, int *, int );
